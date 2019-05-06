@@ -133,7 +133,7 @@ class Window(Frame):
     def filterBilateral(self):
         image = cv2.imread('Kanban-menor.png')
         #Applying Bilateral filter to image
-        bilateralFilter = cv2.bilateralFilter(image,9,100,75)
+        bilateralFilter = cv2.bilateralFilter(image,9,75,75)
         #Saving filtered image to new file
         cv2.imwrite('bilateralFilter.png',bilateralFilter)
         #showing the new image 
