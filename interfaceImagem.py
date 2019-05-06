@@ -126,7 +126,7 @@ class Window(Frame):
         #Applying Gaussian Blur filter to image
         gaussianBlur = cv2.GaussianBlur(image,(3,3),0)
         #Saving filtered image to new file
-        cv2.imwrite('gaussianBl.png',gaussianBlur)
+        cv2.imwrite('gaussianBlur.png',gaussianBlur)
         #showing the new image 
         self.showImg("gaussianBlur.png")
 
