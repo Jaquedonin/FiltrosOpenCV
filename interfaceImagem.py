@@ -8,7 +8,7 @@ import cv2
 
 import numpy as np
 
-global ImgSave
+
 
 # Here, we are creating our class, Window, and inheriting from the Frame
 # class. Frame is a class from the tkinter module. 
@@ -51,34 +51,27 @@ class Window(Frame):
         self.autenticar["width"] = 8
         self.autenticar["command"] = self.filterGreen
         self.autenticar.pack(side = "left")
-        #Button filter2D
-        self.autenticar = Button(self.master)
-        self.autenticar["text"] = "Filtro 2d"
-        self.autenticar["font"] = ("Calibri", "8")
-        self.autenticar["width"] = 8
-        self.autenticar["command"] = self.filter2D
-        self.autenticar.pack(side = TOP)
         #Button  filter Blur
         self.autenticar = Button(self.master)
         self.autenticar["text"] = "Filtro Blur"
         self.autenticar["font"] = ("Calibri", "8")
         self.autenticar["width"] = 8
         self.autenticar["command"] = self.filterBlur
-        self.autenticar.pack(side = RIGHT)
+        self.autenticar.pack(side = TOP)
         #Button Gaussian filter
         self.autenticar = Button(self.master)
         self.autenticar["text"] = "FiltroGaussian"
         self.autenticar["font"] = ("Calibri", "8")
         self.autenticar["width"] = 8
         self.autenticar["command"] = self.filterGaussianBlur
-        self.autenticar.pack(side = "left")
+        self.autenticar.pack(side = RIGHT)
         #Button Bilateral filter
         self.autenticar = Button(self.master)
         self.autenticar["text"] = "Filtro Bilateral"
         self.autenticar["font"] = ("Calibri", "8")
         self.autenticar["width"] = 8
         self.autenticar["command"] = self.filterBilateral
-        self.autenticar.pack(side ="bottom")
+        self.autenticar.pack(side ="left")
         #Button Blue filter
         self.autenticar = Button(self.master)
         self.autenticar["text"] = "Filtro Blue"
@@ -98,7 +91,7 @@ class Window(Frame):
         self.autenticar["text"] = "Filtro Negativo"
         self.autenticar["font"] = ("Calibri", "8")
         self.autenticar["width"] = 8
-        self.autenticar["command"] = self.filterNegativo
+        self.autenticar["command"] = self.filterNegative
         self.autenticar.pack(side = "bottom")
 
     #Creating the function showImg
@@ -119,17 +112,6 @@ class Window(Frame):
         #showing the new image 
         self.showImg("graytest.png")
 
-    def filter2D(self):
-        image = cv2.imread('Kanban-menor.png')
-        #Applying kernel filter to image
-        kernel = np.ones((6,6),np.float32)/25
-        filter2D = cv2.filter2D(image,-1,kernel)
-        #Saving filtered image to new file
-        cv2.imwrite('filter2D.png',filter2D)
-        ImgSave = filter2D
-        #showing the new image 
-        self.showImg("filter2D.png")
-
     def filterBlur(self):
         image = cv2.imread('Kanban-menor.png')
         #Applying Blur filter to image
@@ -138,20 +120,20 @@ class Window(Frame):
         cv2.imwrite('filterBlur.png',filterBlur)
         #showing the new image 
         self.showImg("filterBlur.png")
-
+    #filtro de suavização através da média
     def filterGaussianBlur(self):
         image = cv2.imread('Kanban-menor.png')
         #Applying Gaussian Blur filter to image
-        gaussianBlur = cv2.GaussianBlur(image,(5,5),0)
+        gaussianBlur = cv2.GaussianBlur(image,(3,3),0)
         #Saving filtered image to new file
-        cv2.imwrite('gaussianBlur.png',gaussianBlur)
+        cv2.imwrite('gaussianBl.png',gaussianBlur)
         #showing the new image 
         self.showImg("gaussianBlur.png")
 
     def filterBilateral(self):
         image = cv2.imread('Kanban-menor.png')
         #Applying Bilateral filter to image
-        bilateralFilter = cv2.bilateralFilter(image,9,75,75)
+        bilateralFilter = cv2.bilateralFilter(image,9,100,75)
         #Saving filtered image to new file
         cv2.imwrite('bilateralFilter.png',bilateralFilter)
         #showing the new image 
@@ -214,9 +196,9 @@ class Window(Frame):
             #Add just the color blue in the picture  
             imagem[linha,coluna] = (255 - b,255 - g,255 - r)
         #save the modify picture
-        cv2.imwrite("filterRed.png", imagem)
+        cv2.imwrite("filterNegative.png", imagem)
         #showing the new image 
-        self.showImg("filterRed.png")
+        self.showImg("filterNegative.png")
         
     
 # root window created. Here, that would be the only window, but
